@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
@@ -66,6 +67,16 @@ namespace DataAccess.Concrete.InMemory
         public Car FindById(int categoryId)
         {
             return _cars.Find(c => c.Id == categoryId);
+        }
+
+        public List<Car> FindAll(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Car Find(Expression<Func<Car, bool>> filter)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
