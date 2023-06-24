@@ -17,9 +17,8 @@ namespace Business.Validation
         {
             RuleFor(x => x.CarName).NotEmpty().WithName("Araba Adı").WithMessage("{PropertyName}" + _validatorMessages.NotEmpty).MinimumLength(2).WithMessage("{PropertyName}" + _validatorMessages.NotShorterChars).MaximumLength(20).WithMessage("{PropertyName}" + _validatorMessages.NotLongerChars);
 
-            RuleFor(x => x.DailyPrice).GreaterThan(0).WithName("Günlük Fiyat").WithMessage("{PropertyName}" + _validatorMessages.NotGreaterNums);
-
+            RuleFor(x => x.DailyPrice).GreaterThan(0).WithName("Günlük Fiyat")
+                .WithMessage("{PropertyName}" + _validatorMessages.NotGreaterNums);
         }
-
     }
 }

@@ -35,7 +35,6 @@ namespace ConsoleUI
             {
                 Console.WriteLine(car.ColorId + " " + car.Description);
             }
-
         }
     }
 }
