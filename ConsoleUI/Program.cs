@@ -12,7 +12,7 @@ namespace ConsoleUI
         {
             //var carManager = CarsLoader(); //For InMemory Testing
 
-            CarManager carManager = new CarManager(new EfCarDal());
+            CarManager carManager = new CarManager(new EfCarDal()); //For EntityFramewprk Testing
 
             // GetAllCars(carManager);
 
