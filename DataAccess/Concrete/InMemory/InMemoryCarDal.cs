@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace DataAccess.Concrete.InMemory
 {
@@ -27,7 +28,7 @@ namespace DataAccess.Concrete.InMemory
 
         #region Implementation of ICarDal
 
-        public List<Car> FindAll()
+        public List<Car> GetAll()
         {
             return _cars;
         }
@@ -64,17 +65,24 @@ namespace DataAccess.Concrete.InMemory
             throw new Exception("Ilgili Id ye ait arac bulunamadi");
         }
 
-        public Car FindById(int categoryId)
+        public Car GetById(int categoryId)
         {
             return _cars.Find(c => c.Id == categoryId);
         }
 
-        public List<Car> FindAll(Expression<Func<Car, bool>> filter = null)
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            var cars = _cars.ToList();
+            return cars;
         }
 
-        public Car Find(Expression<Func<Car, bool>> filter)
+        public Car Get(Expression<Func<Car, bool>> filter)
+        {
+            var car = _cars.SingleOrDefault();
+            return car;
+        }
+
+        public List<CarDetailDto> GetCarDetails()
         {
             throw new NotImplementedException();
         }

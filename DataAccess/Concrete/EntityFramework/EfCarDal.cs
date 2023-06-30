@@ -1,66 +1,37 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities.Concrete;
-using Microsoft.EntityFrameworkCore;
-using System;
+using Entities.DTOs;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal : ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, MsDbContext>, ICarDal
     {
-
-        #region Implementation of IEntityRepository<Car>
-
-        public List<Car> FindAll(Expression<Func<Car, bool>> filter = null)
+        public List<CarDetailDto> GetCarDetails()
         {
             using (MsDbContext context = new MsDbContext())
             {
-                return filter == null
-                    ? context.Set<Car>().ToList()
-                    : context.Set<Car>().Where(filter).ToList();
+                var result = from car in context.Cars
+                    join b in context.Brands
+                        on car.BrandId equals b.Id
+                    join col in context.Colors
+                        on car.ColorId equals col.Id
+                    join m in context.Models
+                        on car.ModelId equals m.Id
+                    select new CarDetailDto
+                    {
+                        CarName = car.CarName,
+                        BrandName = b.BrandName,
+                        ColorName = col.ColorName,
+                        ModelYear = car.ModelYear,
+                        ModelName = m.ModelName,
+                        DailyPrice = car.DailyPrice,
+                        Description = car.Description
+                    };
+                return result.ToList();
             }
         }
-
-        public Car Find(Expression<Func<Car, bool>> filter)
-        {
-            using (MsDbContext context = new MsDbContext())
-            {
-                return context.Set<Car>().SingleOrDefault(filter);
-            }
-        }
-
-
-        public void Add(Car entity)
-        {
-            using (MsDbContext context = new MsDbContext())
-            {
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
-            }
-        }
-
-        public void Update(Car entity)
-        {
-            using (MsDbContext context = new MsDbContext())
-            {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
-            }
-        }
-
-        public void Delete(Car entity)
-        {
-            using (MsDbContext context = new MsDbContext())
-            {
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
-            }
-        }
-        #endregion
     }
 }

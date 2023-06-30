@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -15,11 +16,9 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        #region Implementation of ICarService
-
         public List<Car> GetAll()
         {
-            return _carDal.FindAll();
+            return _carDal.GetAll();
         }
 
         public void Add(Car car)
@@ -43,19 +42,22 @@ namespace Business.Concrete
 
         public Car GetById(int categoryId)
         {
-            return _carDal.Find(c => c.Id == categoryId);
+            return _carDal.Get(c => c.Id == categoryId);
         }
 
         public List<Car> GetCarsByBrandId(int id)
         {
-            return _carDal.FindAll(c => c.BrandId == id);
+            return _carDal.GetAll(c => c.BrandId == id);
         }
 
         public List<Car> GetCarsByColorId(int id)
         {
-            return _carDal.FindAll(c => c.ColorId == id);
+            return _carDal.GetAll(c => c.ColorId == id);
         }
 
-        #endregion
+        public List<CarDetailDto> GetCarDetails()
+        {
+            return _carDal.GetCarDetails();
+        }
     }
 }

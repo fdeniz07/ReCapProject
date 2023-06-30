@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using Core.DataAccess;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace DataAccess.Abstract
 {
@@ -10,5 +12,6 @@ namespace DataAccess.Abstract
         //void Update(Car car);
         //void Delete(Car car); 
         //Car FindById(int categoryId);
+        List<CarDetailDto> GetCarDetails();
     }
 }
