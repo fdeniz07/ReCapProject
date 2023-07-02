@@ -1,6 +1,7 @@
-﻿using Entities.Concrete;
+﻿using Business.Constants;
+using Entities.Concrete;
 using FluentValidation;
-using Traversal.CoreLayer.Utilities;
+
 
 namespace Business.Validation
 {
