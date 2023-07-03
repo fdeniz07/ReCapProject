@@ -13,6 +13,9 @@ namespace ConsoleUI
             //var carManager = CarsLoader(); //For InMemory Testing
 
             CarManager carManager = new CarManager(new EfCarDal()); //For EntityFramewprk Testing
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            UserManager userManager = new UserManager(new EfUserDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
 
             // GetAllCars(carManager);
 
@@ -22,7 +25,74 @@ namespace ConsoleUI
 
             // GetAllCarsDetails(carManager);
 
-            GetCarDetails(carManager, 3);
+            // GetCarDetails(carManager, 3);
+
+            // AddUser(userManager);
+
+            // AddCustomer(customerManager);
+
+            AddRental(rentalManager);
+        }
+
+
+
+        private static UserManager AddUser(UserManager userManager)
+        {
+            userManager.Add(new User
+            {
+                FirstName = "Max",
+                LastName = "Mustermann",
+                Email = "max@test.de",
+                Password = "123456",
+                //IsActive = true,
+                //IsDeleted = false,
+                //Visible = true,
+                //CreatedDate = DateTime.Now,
+                //CreatedByName = "Admin",
+                //ModifiedDate = DateTime.Now,
+                //ModifiedByName = "Admin",
+                Note = "Bu test amacli olusturulmustur!"
+            });
+            return userManager;
+        }
+
+        private static CustomerManager  AddCustomer(CustomerManager customerManager)
+        {
+            customerManager.Add(new Customer
+            {
+                CompanyName = "Sixt Rent A Car",
+                IsActive = true,
+                IsDeleted = false,
+                CreatedDate = DateTime.Now,
+                CreatedByName = "Admin",
+                ModifiedDate = DateTime.Now,
+                ModifiedByName = "Admin",
+                UserId = 1,
+                Visible = true,
+                Note = "Deneme amacli olusturulmustur!"
+            });
+            return customerManager;
+        }
+
+        private static RentalManager AddRental(RentalManager rentalManager)
+        {
+            rentalManager.Add(new Rental
+            {
+                CarId = 1,
+                CustomerId = 1,
+                RentStartDate = DateTime.Now.AddDays(1),
+                RentEndDate = DateTime.Now.AddDays(15),
+                ReturnDate = null,
+                IsActive = true,
+                IsDeleted = false,
+                Visible = true,
+                CreatedDate = DateTime.Now,
+                CreatedByName = "Admin",
+                ModifiedDate = DateTime.Now,
+                ModifiedByName = "Admin",
+                Note = "Bu test amacli olusturulmustur"
+            });
+            return rentalManager;
         }
 
         private static void GetCarDetails(CarManager carManager, int id)
