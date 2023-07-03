@@ -92,6 +92,21 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
+        public bool GetAny(Expression<Func<Car, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Count(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<Car> GetAsQueryable()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }
