@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Business.Concrete
 {
@@ -16,48 +20,77 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CARS_LISTED);
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if (car.CarName.Length > 1 && car.DailyPrice > 0)
-
+            {
                 _carDal.Add(car);
+                return new SuccessResult(Messages.CAR_ADDED);
+            }
             else
-                Console.WriteLine("Araç ismi en az iki karakter olmalı ve Günlük Kira bedeli 0'dan büyük olmalıdır!");
+            {
+                return new ErrorResult(
+                    "Araç ismi en az iki karakter olmalı ve Günlük Kira bedeli 0'dan büyük olmalıdır!");
+            }
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
             _carDal.Update(car);
+            return new SuccessResult(Messages.CAR_UPDATED);
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             _carDal.Delete(car);
+            return new SuccessResult(Messages.CAR_DELETED);
         }
 
-        public Car GetById(int categoryId)
+        public IDataResult<Car> GetById(int carId)
         {
-            return _carDal.Get(c => c.Id == categoryId);
+            //Bu kisim mutlaka ilgili id bulunamadiginda HANDLE EDILMELI!!!
+            //var results = _carDal.Get(c => c.Id == carId);
+
+            //if (results == null)
+            //{
+            //    return new ErrorDataResult<Car>(String.Format(Messages.CAR_NOT_FOUND, carId));
+            //}
+
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId), String.Format(Messages.CAR_LISTED, carId));
         }
 
-        public List<Car> GetCarsByBrandId(int id)
+        public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            return _carDal.GetAll(c => c.BrandId == id);
+            var results = _carDal.GetAll(c => c.BrandId == id);
+
+            if (results.Count == 0)
+            {
+                return new ErrorDataResult<List<Car>>(String.Format(Messages.CAR_NOT_FOUND, id));
+            }
+
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
         }
 
-        public List<Car> GetCarsByColorId(int id)
+        public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
-            return _carDal.GetAll(c => c.ColorId == id);
+            var results = _carDal.GetAll(c => c.ColorId == id);
+
+            if (results.Count == 0)
+            {
+                return new ErrorDataResult<List<Car>>(String.Format(Messages.CAR_NOT_FOUND, id));
+            }
+
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public IDataResult<List<CarDetailDto>> GetCarsDetails()
         {
-            return _carDal.GetCarDetails();
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarsDetails());
         }
     }
 }

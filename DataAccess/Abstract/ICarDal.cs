@@ -12,6 +12,6 @@ namespace DataAccess.Abstract
         //void Update(Car car);
         //void Delete(Car car); 
         //Car FindById(int categoryId);
-        List<CarDetailDto> GetCarDetails();
+        List<CarDetailDto> GetCarsDetails();
     }
 }

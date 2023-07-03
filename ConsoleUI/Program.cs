@@ -18,21 +18,41 @@ namespace ConsoleUI
 
             // GetCarsByBrandId(carManager, 1);
 
-            // GetCarsByColorId(carManager, 5);
+            // GetCarsByColorId(carManager, 6);
 
-            GetAllCarDetails(carManager);
+            // GetAllCarsDetails(carManager);
+
+            GetCarDetails(carManager, 3);
         }
 
-        private static void GetAllCarDetails(CarManager carManager)
+        private static void GetCarDetails(CarManager carManager, int id)
+        {
+            Console.WriteLine("****************************** Car Get By Id *******************************\n");
+
+            var result = carManager.GetById(id);
+
+                Console.WriteLine("{0,10} {1,10} {2,6}  {3,15}\n", "Car Name", "Model Year", "Daily Price($)", "Description");
+
+                Console.WriteLine("{0,10}   {1,10}  {2,7} {3,25}\n", result.Data.CarName, result.Data.ModelYear, result.Data.DailyPrice, result.Data.Description);
+
+            Console.WriteLine(result.Message);
+        }
+
+        private static void GetAllCarsDetails(CarManager carManager)
         {
             Console.WriteLine("****************************** Car List Details *******************************\n");
 
-            Console.WriteLine("{0,10} {1,12} {2,8} {3,10} {4,6} {5,7} {6,15}\n", "Car Name", "Brand Name", "Color",
-                "Model Year", "Model Name", "Daily Price($)", "Description");
-            foreach (var car in carManager.GetCarDetails())
+            var result = carManager.GetCarsDetails();
+
+            if (result.Success)
             {
-                Console.WriteLine("{0,10} {1,12} {2,8} {3,10} {4,6} {5,7} {6,25}", car.CarName, car.BrandName,
-                    car.ColorName, car.ModelYear, car.ModelName, car.DailyPrice, car.Description);
+                Console.WriteLine("{0,10} {1,12} {2,8} {3,10} {4,6} {5,7} {6,15}\n", "Car Name", "Brand Name", "Color",
+                    "Model Year", "Model Name", "Daily Price($)", "Description");
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine("{0,10} {1,12} {2,8} {3,10} {4,6} {5,7} {6,25}", car.CarName, car.BrandName,
+                        car.ColorName, car.ModelYear, car.ModelName, car.DailyPrice, car.Description);
+                }
             }
         }
 
@@ -41,19 +61,28 @@ namespace ConsoleUI
         {
             Console.WriteLine("****************************** Car List By Color Id *******************************\n");
 
-            Console.WriteLine("{0,5} {1,10} {2,25}", "Color", "Car Name", "Description");
-            foreach (var car in carManager.GetCarsByColorId(colorId))
+            var result = carManager.GetCarsByColorId(colorId);
+
+            if (result.Success)
             {
-                Console.WriteLine("{0,5} {1,10} {2,25}", car.ColorId, car.CarName, car.Description);
+                Console.WriteLine("{0,5} {1,10} {2,25}", "Color", "Car Name", "Description");
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine("{0,5} {1,10} {2,25}", car.ColorId, car.CarName, car.Description);
+                }
             }
+
+            Console.WriteLine(result.Message);
         }
 
         private static void GetCarsByBrandId(CarManager carManager, int brandId)
         {
             Console.WriteLine("******************************** Car List By Brand Id ******************************\n");
 
+            var result = carManager.GetCarsByBrandId(brandId);
+
             Console.WriteLine("{0,5} {1,10} {2,25}", "Brand", "Car Name", "Description");
-            foreach (var car in carManager.GetCarsByBrandId(brandId))
+            foreach (var car in result.Data)
             {
                 Console.WriteLine("{0,5} {1,10} {2,25}", car.BrandId, car.CarName, car.Description);
             }
@@ -64,9 +93,11 @@ namespace ConsoleUI
             Console.WriteLine(
                 "********************************* Car List By Brand Id *******************************\n");
 
+            var result = carManager.GetAll();
+
             Console.WriteLine("{0,5} {1,12} {2,20} {3,13} {4,25}", "Id", "Car Name", "Daily Price($)", "Model Year",
                 "Description");
-            foreach (var car in carManager.GetAll())
+            foreach (var car in result.Data)
             {
                 Console.WriteLine("{0,5} {1,12} {2,10} {3,20} {4,30}", car.BrandId, car.CarName, car.DailyPrice,
                     car.ModelYear, car.Description);

@@ -82,7 +82,12 @@ namespace DataAccess.Concrete.InMemory
             return car;
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public List<CarDetailDto> GetCarsDetails()
+        {
+            throw new NotImplementedException();
+        }
+
+        public CarDetailDto GetCarDetails(int id)
         {
             throw new NotImplementedException();
         }
