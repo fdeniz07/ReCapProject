@@ -53,15 +53,15 @@ namespace Business.Concrete
 
         public IDataResult<Car> GetById(int carId)
         {
-            //Bu kisim mutlaka ilgili id bulunamadiginda HANDLE EDILMELI!!!
-            //var results = _carDal.Get(c => c.Id == carId);
+            var results = _carDal.Get(c => c.Id == carId);
 
-            //if (results == null)
-            //{
-            //    return new ErrorDataResult<Car>(String.Format(Messages.CAR_NOT_FOUND, carId));
-            //}
+            if (results == null)
+            {
+                return new ErrorDataResult<Car>(String.Format(Messages.CAR_NOT_FOUND, carId));
+            }
 
-            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId), String.Format(Messages.CAR_LISTED, carId));
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId),
+                String.Format(Messages.CAR_LISTED_WITH_ID, carId));
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
@@ -70,10 +70,15 @@ namespace Business.Concrete
 
             if (results.Count == 0)
             {
-                return new ErrorDataResult<List<Car>>(String.Format(Messages.CAR_NOT_FOUND, id));
+                return new ErrorDataResult<List<Car>>(Messages.CARS_NOT_FOUND);
             }
 
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
+            if (results.Count <2)
+            {
+                return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id), Messages.CAR_LISTED);
+            }
+
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id), Messages.CARS_LISTED);
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int id)
@@ -82,15 +87,28 @@ namespace Business.Concrete
 
             if (results.Count == 0)
             {
-                return new ErrorDataResult<List<Car>>(String.Format(Messages.CAR_NOT_FOUND, id));
+                return new ErrorDataResult<List<Car>>(Messages.CARS_NOT_FOUND);
             }
 
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
+            if (results.Count < 2)
+            {
+                return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id), Messages.CAR_LISTED);
+            }
+
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id), Messages.CARS_LISTED);
         }
 
         public IDataResult<List<CarDetailDto>> GetCarsDetails()
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarsDetails());
+            var results = _carDal.GetAll();
+
+            if (results == null)
+            {
+                return new ErrorDataResult<List<CarDetailDto>>(String.Format(Messages.CARS_NOT_FOUND));
+            }
+
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarsDetails(),
+                Messages.CARS_LISTED);
         }
     }
 }

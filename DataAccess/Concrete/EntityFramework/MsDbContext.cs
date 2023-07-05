@@ -7,7 +7,7 @@ namespace DataAccess.Concrete.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=APACHIE;Initial Catalog=ReCapDB;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=APACHIE;Initial Catalog=ReCapDB;Integrated Security=True;Connect Timeout=30;Encrypt=False");
         }
 
         public DbSet<Car> Cars { get; set; }

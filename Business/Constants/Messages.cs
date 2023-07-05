@@ -12,8 +12,10 @@
         public static string CAR_INVISIBLED = "Bilgi: Aracın görüntülenmesi kaldırıldı";
         public static string CARNAME_IS_INVALID = "Hata: Araç ismi gecersiz";
         public static string CARS_LISTED = "Bilgi: Araçlar listelendi";
-        public static string CAR_LISTED = "Bilgi: {0} id'li araç gösteriliyor";
+        public static string CAR_LISTED_WITH_ID = "Bilgi: {0} id'li araç gösteriliyor";
+        public static string CAR_LISTED = "Bilgi: Araç gösteriliyor";
         public static string CAR_NOT_FOUND = "Uyarı: {0} id'li araç bulunamadı";
+        public static string CARS_NOT_FOUND= "Uyarı: Araçlar bulunamadı";
 
         //USER MESSAGES
         public static string USERS_LISTED = "Bilgi: Kullanicilar listelendi";
