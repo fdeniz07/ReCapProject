@@ -1,6 +1,5 @@
 ﻿using Castle.DynamicProxy;
 using System;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Core.Utilities.Interceptors
 {

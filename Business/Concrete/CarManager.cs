@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Business.Abstract;
+﻿using Business.Abstract;
 using Business.Constants;
-using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
-using FluentValidation;
-using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using Business.ValidationRules.FluentValidation;
 
 namespace Business.Concrete
 {
@@ -27,28 +25,30 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CARS_LISTED);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            var context = new ValidationContext<Car>(car);
-            CarValidator carValidator = new CarValidator();
+            #region Attribute Öncesi Kod Yapisi
+            //var context = new ValidationContext<Car>(car);
+            //CarValidator carValidator = new CarValidator();
 
-            var result = carValidator.Validate(context);
-            if (!result.IsValid)
-            {
-                throw new ValidationException(result.Errors);
-            }
+            //var result = carValidator.Validate(context);
+            //if (!result.IsValid)
+            //{
+            //    throw new ValidationException(result.Errors);
+            //}
 
+            #region Kötü kodun iyilestirilip, CrossCuttingConcerns olarak ele alinmasi
+            //if (car.CarName.Length < 1 && car.DailyPrice <= 0)
+            //{
+            //    return new ErrorResult(
+            //        "Araç ismi en az iki karakter olmalı ve Günlük Kira bedeli 0'dan büyük olmalıdır!");
 
-            if (car.CarName.Length > 1 && car.DailyPrice > 0)
-            {
-                _carDal.Add(car);
-                return new SuccessResult(Messages.CAR_ADDED);
-            }
-            else
-            {
-                return new ErrorResult(
-                    "Araç ismi en az iki karakter olmalı ve Günlük Kira bedeli 0'dan büyük olmalıdır!");
-            }
+            //}
+            #endregion
+            #endregion
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CAR_ADDED);
         }
 
         public IResult Update(Car car)
