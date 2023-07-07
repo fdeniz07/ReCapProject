@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Business.Concrete
@@ -27,6 +29,16 @@ namespace Business.Concrete
 
         public IResult Add(Car car)
         {
+            var context = new ValidationContext<Car>(car);
+            CarValidator carValidator = new CarValidator();
+
+            var result = carValidator.Validate(context);
+            if (!result.IsValid)
+            {
+                throw new ValidationException(result.Errors);
+            }
+
+
             if (car.CarName.Length > 1 && car.DailyPrice > 0)
             {
                 _carDal.Add(car);
@@ -73,7 +85,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<List<Car>>(Messages.CARS_NOT_FOUND);
             }
 
-            if (results.Count <2)
+            if (results.Count < 2)
             {
                 return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id), Messages.CAR_LISTED);
             }
