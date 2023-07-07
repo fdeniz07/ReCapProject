@@ -1,4 +1,7 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Business;
+using Business.DependencyResolvers.Autofac;
 using DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,9 +13,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//IoC Containers --> ServiceRegistrations
-builder.Services.AddPersistanceServices();
-builder.Services.AddBusinessServices();
+//IoC Containers --> Autofac
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory(options =>
+    options.RegisterModule(new AutofacBusinessModule())
+));
 
 var app = builder.Build();
 
