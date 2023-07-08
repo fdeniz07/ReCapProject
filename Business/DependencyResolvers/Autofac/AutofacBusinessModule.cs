@@ -25,7 +25,6 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
 
-
             //Autofac bize .Net mimarisi disinda Interceptor görevi kazandiriyor. Yukaridaki tün siniflari tariyor, bu class'larin Aspect'i var mi diye tariyor.
             //Asagidaki kod blogu ile calisan uygulama icerisinde implemente edilmis interface'leri bul
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
