@@ -11,7 +11,7 @@ namespace Business.Concrete
 {
     public class RentalManager : IRentalService
     {
-        private IRentalDal _rentalDal;
+        private readonly IRentalDal _rentalDal;
 
         public RentalManager(IRentalDal rentalDal)
         {
@@ -31,7 +31,7 @@ namespace Business.Concrete
             var result = _rentalDal.GetAll(r => r.CarId == carId && r.ReturnDate == null);
             if (result.Count > 0)
             {
-                return new ErrorResult(String.Format(Messages.RENTAL_UNDELIVERED_CAR, carId));
+                return new ErrorResult(string.Format(Messages.RENTAL_UNDELIVERED_CAR, carId));
             }
 
             return new SuccessResult(Messages.CAR_LISTED);
@@ -50,7 +50,7 @@ namespace Business.Concrete
                 return new SuccessResult(Messages.RENTAL_ADDEED);
             }
 
-            return new ErrorResult(String.Format(Messages.RENTAL_NOT_FOUND, rentalId));
+            return new ErrorResult(string.Format(Messages.RENTAL_NOT_FOUND, rentalId));
         }
 
         public IDataResult<List<Rental>> GetAll()
@@ -61,13 +61,13 @@ namespace Business.Concrete
         public IDataResult<List<Rental>> GetAllByCarId(int carId)
         {
             _rentalDal.Get(r => r.CarId == carId);
-            return new SuccessDataResult<List<Rental>>(String.Format(Messages.CAR_LISTED, carId));
+            return new SuccessDataResult<List<Rental>>(string.Format(Messages.CAR_LISTED, carId));
         }
 
         public IDataResult<Rental> GetById(int id)
         {
             _rentalDal.Get(r => r.Id == id);
-            return new SuccessDataResult<Rental>(String.Format(Messages.RENTAL_LISTED, id));
+            return new SuccessDataResult<Rental>(string.Format(Messages.RENTAL_LISTED, id));
         }
 
         public IResult IsRentable(Rental rental)

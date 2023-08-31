@@ -35,26 +35,26 @@ namespace ConsoleUI
         }
 
 
- 
-        private static UserManager AddUser(UserManager userManager)
-        {
-            userManager.Add(new User
-            {
-                FirstName = "Max",
-                LastName = "Mustermann",
-                Email = "max@test.de",
-                Password = "123456",
-                //IsActive = true,
-                //IsDeleted = false,
-                //Visible = true,
-                //CreatedDate = DateTime.Now,
-                //CreatedByName = "Admin",
-                //ModifiedDate = DateTime.Now,
-                //ModifiedByName = "Admin",
-                Note = "Bu test amacli olusturulmustur!"
-            });
-            return userManager;
-        }
+
+        //private static UserManager AddUser(UserManager userManager)
+        //{
+        //    userManager.Add(new User
+        //    {
+        //        FirstName = "Max",
+        //        LastName = "Mustermann",
+        //        Email = "max@test.de",
+        //        Password = "123456",
+        //        //IsActive = true,
+        //        //IsDeleted = false,
+        //        //Visible = true,
+        //        //CreatedDate = DateTime.Now,
+        //        //CreatedByName = "Admin",
+        //        //ModifiedDate = DateTime.Now,
+        //        //ModifiedByName = "Admin",
+        //        Note = "Bu test amacli olusturulmustur!"
+        //    });
+        //    return userManager;
+        //}
 
         private static CustomerManager  AddCustomer(CustomerManager customerManager)
         {

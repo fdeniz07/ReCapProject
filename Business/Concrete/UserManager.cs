@@ -1,16 +1,15 @@
 ﻿using Business.Abstract;
-using Core.Utilities.Results;
-using Entities.Concrete;
-using System;
-using System.Collections.Generic;
 using Business.Constants;
+using Core.Entities.Concrete;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
+using System.Collections.Generic;
 
 namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
-        private IUserDal _userDal;
+        private readonly IUserDal _userDal;
 
         public UserManager(IUserDal userDal)
         {
@@ -19,7 +18,7 @@ namespace Business.Concrete
 
         public IDataResult<User> GetById(int id)
         {
-            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == id), String.Format(Messages.USER_LISTED, id));
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == id), string.Format(Messages.USER_LISTED, id));
         }
 
         public IDataResult<List<User>> GetAll()
@@ -29,8 +28,8 @@ namespace Business.Concrete
 
         public IResult Add(User user)
         {
-           _userDal.Add(user);
-           return new SuccessResult(Messages.USER_ADDEED);
+            _userDal.Add(user);
+            return new SuccessResult(Messages.USER_ADDED);
         }
 
         public IResult Update(User user)
@@ -43,6 +42,16 @@ namespace Business.Concrete
         {
             _userDal.Delete(user);
             return new SuccessResult(Messages.USERS_DELETED);
+        }
+
+        public IDataResult<User> GetByMail(string email)
+        {
+          return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email));
+        }
+
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
+        {
+            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
         }
     }
 }

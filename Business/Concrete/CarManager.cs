@@ -13,7 +13,7 @@ namespace Business.Concrete
 {
     public class CarManager : ICarService
     {
-        private ICarDal _carDal;
+        private readonly ICarDal _carDal;
 
         public CarManager(ICarDal carDal)
         {
@@ -69,7 +69,7 @@ namespace Business.Concrete
 
             if (results == null)
             {
-                return new ErrorDataResult<Car>(String.Format(Messages.CAR_NOT_FOUND, carId));
+                return new ErrorDataResult<Car>(string.Format(Messages.CAR_NOT_FOUND, carId));
             }
 
             return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId),
@@ -116,7 +116,7 @@ namespace Business.Concrete
 
             if (results == null)
             {
-                return new ErrorDataResult<List<CarDetailDto>>(String.Format(Messages.CARS_NOT_FOUND));
+                return new ErrorDataResult<List<CarDetailDto>>(string.Format(Messages.CARS_NOT_FOUND));
             }
 
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarsDetails(),

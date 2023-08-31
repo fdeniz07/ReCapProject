@@ -1,30 +1,26 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Helpers.FileHelper;
 using Core.Utilities.BusinessRules;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
-using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
-using Business.Constants;
 using IResult = Core.Utilities.Results.IResult;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Business.Concrete
 {
     public class CarImageManager : ICarImageService
     {
-        private ICarImageDal _carImageDal;
-        private IFileHelper _fileHelper;
+        private readonly ICarImageDal _carImageDal;
+        private readonly IFileHelper _fileHelper;
 
         public CarImageManager(ICarImageDal carImageDal, IFileHelper fileHelper)
         {
             _carImageDal = carImageDal;
             _fileHelper = fileHelper;
         }
-
 
         public IResult Add(IFormFile file, CarImage carImage)
         {
@@ -36,9 +32,8 @@ namespace Business.Concrete
             carImage.ImagePath = _fileHelper.Upload(file, PathConstants.ImagesPath);
             //carImage.CreatedDate = DateTime.Now;
             _carImageDal.Add(carImage);
-            return new SuccessResult("Resim başarıyla yüklendi");
+            return new SuccessResult(Messages.IMAGE_UPLOADED_SUCCESSFULY);
         }
-
 
         public IResult Update(IFormFile file, CarImage carImage)
         {
@@ -47,15 +42,12 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-
         public IResult Delete(CarImage carImage)
         {
             _fileHelper.Delete(PathConstants.ImagesPath + carImage.ImagePath);
             _carImageDal.Delete(carImage);
             return new SuccessResult();
         }
-
-
 
         public IDataResult<List<CarImage>> GetAll()
         {
@@ -76,10 +68,6 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.Id == imageId));
         }
-
-      
-
-
 
         private IResult CheckCarImage(int carId)
         {

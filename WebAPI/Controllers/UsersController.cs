@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Entities.Concrete;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
 
         //TODO : Update,Delete and other Endpoints
     }
