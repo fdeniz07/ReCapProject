@@ -6,6 +6,7 @@ This Project is a Rent A Car Restful-API Project.
 
 - Developing a Project With N Layered Architecture - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 - Entity Framework Core 7.0 Code First - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- Code First - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 - Generic Repository Pattern - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 - OOP - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 - Polymorphism - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
@@ -20,6 +21,9 @@ This Project is a Rent A Car Restful-API Project.
 - Cross Cutting Concerns - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 - Interceptor, Reflextion, Delegate, Attribute - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 - File Upload  - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- JWT - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- Authentication & Authorization - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- Extension Classes and Methods - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 <!--
 - AutoMapper Library - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 - MD5 Password Hashing - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
