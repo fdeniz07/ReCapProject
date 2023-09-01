@@ -2,6 +2,8 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business;
 using Business.DependencyResolvers.Autofac;
+using Core.DependencyResolvers;
+using Core.Utilities.Extensions;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
@@ -23,7 +25,6 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory(options
     options.RegisterModule(new AutofacBusinessModule())
 ));
 
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -39,7 +40,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
         };
     });
-ServiceTool.Create(builder.Services);
+
+//Katmanlardan bagimsiz ama projenin calismasina etki eden modülleri asagiya "," ile ayirarak ekleyebiliriz.
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+{
+    new CoreModule() //,new securityModule(),new aspektModule gibi
+});
 
 
 var app = builder.Build();

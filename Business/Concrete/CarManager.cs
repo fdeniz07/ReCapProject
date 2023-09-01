@@ -8,6 +8,9 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using Business.ValidationRules.FluentValidation;
+using Business.BusinessAspects.Autofac;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
 
 namespace Business.Concrete
 {
@@ -20,11 +23,13 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        [PerformanceAspect(5)]
         public IDataResult<List<Car>> GetAll()
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CARS_LISTED);
         }
 
+        [SecuredOperation("Car.Add,Admin")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
@@ -51,12 +56,16 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CAR_ADDED);
         }
 
+        [SecuredOperation("product.add,admin")]
+        [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
             return new SuccessResult(Messages.CAR_UPDATED);
         }
 
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
@@ -110,6 +119,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id), Messages.CARS_LISTED);
         }
 
+        [PerformanceAspect(5)]
         public IDataResult<List<CarDetailDto>> GetCarsDetails()
         {
             var results = _carDal.GetAll();
