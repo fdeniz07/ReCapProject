@@ -1,6 +1,7 @@
 ﻿using Castle.DynamicProxy;
 using Core.CrossCuttingConcerns.Validations.FluentValidation;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Messages;
 using FluentValidation;
 using System;
 using System.Linq;
@@ -9,14 +10,14 @@ namespace Core.Aspects.Autofac.Validation
 {
     public class ValidationAspect : MethodInterception
     {
-        private Type _validatorType; //Bu bir attribute
+        private readonly Type _validatorType; //Bu bir attribute
 
         //Burada ilgili attribute'ü aliyoruz. Yani hangi sinifa ait attribute olacak.
         public ValidationAspect(Type validatorType) // Attribute'ler Type yapisi ile kullanilirlar!
         {
-            if (!typeof(IValidator).IsAssignableFrom(validatorType))
+            if (!typeof(IValidator).IsAssignableFrom(validatorType))  // Gelen tipin dogrulama (IValidator) türünden olup olmadigini kontrol ediyoruz
             {
-                throw new Exception("Bu bir dogrulama sinifi degil");
+                throw new Exception(AspectMessages.WrongValidationType);
             }
 
             _validatorType = validatorType;
